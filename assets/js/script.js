@@ -91,9 +91,17 @@ class STLViewer {
         }
         loadingDiv.textContent = 'Loading model...';
         
-        // Construct Google Drive direct download URL
+        // Try to load from Google Drive first, fallback to local assets
         const fileId = this.getFileId(filename);
-        const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        let downloadUrl;
+        
+        if (fileId) {
+            // Load from Google Drive
+            downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        } else {
+            // Fallback to local assets folder
+            downloadUrl = `assets/models/${filename}`;
+        }
         
         loader.load(downloadUrl, (geometry) => {
             // Remove loading indicator
@@ -158,12 +166,20 @@ class STLViewer {
     
     getFileId(filename) {
         // Map filenames to their Google Drive file IDs
+        // You need to get these IDs by right-clicking each file → Share → Copy link
         const fileMap = {
-            '4speedtransmission.stl': '1y2-H0RqLd5tfypWUIBtAVNAnPueLBtHH', // This is the folder ID, you'll need individual file IDs
-            'iPhone 13 Pro Case.stl': '1y2-H0RqLd5tfypWUIBtAVNAnPueLBtHH',
-            'solderingironholder.stl': '1y2-H0RqLd5tfypWUIBtAVNAnPueLBtHH'
+            '4speedtransmission.stl': '1mpaRjmEzoUhV_wrSIx_arm_QZ9KQ0ItY',
+            'iPhone 13 Pro Case.stl': 'YOUR_IPHONE_CASE_FILE_ID_HERE',
+            'solderingironholder.stl': 'YOUR_SOLDERING_HOLDER_FILE_ID_HERE'
         };
-        return fileMap[filename] || '1y2-H0RqLd5tfypWUIBtAVNAnPueLBtHH';
+        
+        // If file ID not found, show error
+        if (!fileMap[filename]) {
+            console.error('File ID not found for:', filename);
+            return null;
+        }
+        
+        return fileMap[filename];
     }
     
     toggleWireframe() {
