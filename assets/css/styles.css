@@ -208,5 +208,41 @@ body {
   
   button:hover {
     background-color: #00264d;
+    color: white;
+  }
+  
+  .drive-embed-container {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: #f8f9fa;
+  }
+  
+  .drive-embed-container iframe {
+    display: block;
+    background-color: white;
+  }
+  
+  .drive-note {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #f0f8ff;
+    border-left: 4px solid #004080;
+    border-radius: 4px;
+  }
+  
+  /* Responsive adjustments for the drive embed */
+  @media (max-width: 768px) {
+    .drive-embed-container iframe {
+      height: 400px !important;
+    }
+    
+    .drive-note {
+      font-size: 0.85rem;
+    }
   }
   
