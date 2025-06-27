@@ -74,6 +74,7 @@ class STLViewer {
     }
     
     loadModel(filename) {
+        console.log('Loading model:', filename);
         const loader = new THREE.STLLoader();
         const modelName = filename.replace('.stl', '');
         
@@ -93,6 +94,7 @@ class STLViewer {
         
         // Load from local assets folder
         const downloadUrl = `assets/models/${filename}`;
+        console.log('Loading from URL:', downloadUrl);
         
         loader.load(downloadUrl, (geometry) => {
             // Remove loading indicator
@@ -147,8 +149,11 @@ class STLViewer {
         }, (error) => {
             // Error handling
             console.error('Error loading STL file:', error);
+            console.error('Failed URL:', downloadUrl);
+            console.error('Error details:', error.message || error);
+            
             if (loadingDiv) {
-                loadingDiv.textContent = 'Error loading model';
+                loadingDiv.textContent = 'Error loading model: ' + (error.message || 'Unknown error');
                 loadingDiv.style.color = '#ff0000';
             }
             document.getElementById('model-info').textContent = 'Error loading model';
@@ -209,7 +214,30 @@ class STLViewer {
 document.addEventListener('DOMContentLoaded', () => {
     // Check if we're on the CAD designs section
     if (document.getElementById('3d-viewer')) {
-        new STLViewer();
+        try {
+            // Check if Three.js is loaded
+            if (typeof THREE === 'undefined') {
+                console.error('Three.js library not loaded');
+                document.getElementById('3d-viewer').innerHTML = 
+                    '<div class="loading" style="color: #ff0000;">Error: Three.js library not loaded. Please refresh the page.</div>';
+                return;
+            }
+            
+            // Check if STLLoader is available
+            if (typeof THREE.STLLoader === 'undefined') {
+                console.error('STLLoader not available');
+                document.getElementById('3d-viewer').innerHTML = 
+                    '<div class="loading" style="color: #ff0000;">Error: STL Loader not available. Please refresh the page.</div>';
+                return;
+            }
+            
+            console.log('Initializing 3D viewer...');
+            new STLViewer();
+        } catch (error) {
+            console.error('Error initializing 3D viewer:', error);
+            document.getElementById('3d-viewer').innerHTML = 
+                '<div class="loading" style="color: #ff0000;">Error initializing 3D viewer: ' + error.message + '</div>';
+        }
     }
 });
   
