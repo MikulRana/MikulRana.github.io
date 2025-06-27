@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mikul Rana | Portfolio</title>
   <link rel="stylesheet" href="assets/css/styles.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
   <header>
@@ -60,14 +63,44 @@
     <section>
       <h2>CAD Designs</h2>
       <p>Here are my CAD designs and 3D models. You can browse through the files directly below:</p>
-      <div class="drive-embed-container">
-        <iframe 
-          src="https://drive.google.com/embeddedfolderview?id=1y2-H0RqLd5tfypWUIBtAVNAnPueLBtHH#grid" 
-          style="width:100%; height:600px; border:0;"
-          title="CAD Designs Folder">
-        </iframe>
+      
+      <!-- Preview Gallery -->
+      <div class="preview-gallery">
+        <h3>3D Model Viewer</h3>
+        <p>Click on a model below to view it in 3D. You can rotate, zoom, and pan the models.</p>
+        
+        <div class="model-selector">
+          <button class="model-btn active" data-model="4speedtransmission.stl">4-Speed Transmission</button>
+          <button class="model-btn" data-model="iPhone 13 Pro Case.stl">iPhone 13 Pro Case</button>
+          <button class="model-btn" data-model="solderingironholder.stl">Soldering Iron Holder</button>
+        </div>
+        
+        <div class="viewer-container">
+          <div id="3d-viewer"></div>
+          <div class="viewer-controls">
+            <button id="reset-view">Reset View</button>
+            <button id="wireframe-toggle">Toggle Wireframe</button>
+            <div class="viewer-info">
+              <span id="model-name">4-Speed Transmission</span>
+              <span id="model-info">Loading...</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="drive-note">💡 <strong>Tip:</strong> Click on any file to preview or download it directly from the folder above.</p>
+
+      <!-- Embedded Google Drive Folder -->
+      <div class="drive-section">
+        <h3>Download Files</h3>
+        <p>Click below to browse and download the STL files:</p>
+        <div class="drive-embed-container">
+          <iframe 
+            src="https://drive.google.com/embeddedfolderview?id=1y2-H0RqLd5tfypWUIBtAVNAnPueLBtHH#grid" 
+            style="width:100%; height:600px; border:0;"
+            title="CAD Designs Folder">
+          </iframe>
+        </div>
+        <p class="drive-note">💡 <strong>Tip:</strong> Click on any file to preview or download it directly from the folder above.</p>
+      </div>
     </section>
 
     <div id="journalism" class="anchor"></div>
