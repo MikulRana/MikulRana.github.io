@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('3d-viewer').innerHTML = 
                     '<div class="loading" style="color: #ff0000;">Error initializing 3D viewer: ' + error.message + '</div>';
             }
-        }, 1000); // Wait 1 second for scripts to load
+        }, 500); // Wait 0.5 seconds for scripts to load
     }
 });
   
