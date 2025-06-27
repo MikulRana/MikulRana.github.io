@@ -5,28 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mikul Rana | Portfolio</title>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <script>
-    // Fallback if Three.js fails to load
-    window.addEventListener('load', function() {
-      if (typeof THREE === 'undefined') {
-        console.warn('Three.js failed to load, using fallback');
-        // Create a simple fallback viewer
-        const viewer = document.getElementById('3d-viewer');
-        if (viewer) {
-          viewer.innerHTML = `
-            <div style="padding: 2rem; text-align: center; background: #f8f9fa; border-radius: 8px;">
-              <h3>3D Viewer Temporarily Unavailable</h3>
-              <p>The 3D viewer requires external libraries that couldn't be loaded.</p>
-              <p>You can still download the STL files below.</p>
-            </div>
-          `;
-        }
-      }
-    });
-  </script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer@^3.4.0/dist/model-viewer.min.js"></script>
+  <script nomodule src="https://unpkg.com/@google/model-viewer@^3.4.0/dist/model-viewer-legacy.js"></script>
 </head>
 <body>
   <header>
@@ -95,13 +75,29 @@
         </div>
         
         <div class="viewer-container">
-          <div id="3d-viewer"></div>
+          <model-viewer 
+            id="3d-viewer"
+            src="assets/models/4speedtransmission.stl"
+            alt="4-Speed Transmission"
+            camera-controls
+            auto-rotate
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1"
+            shadow-softness="0.5"
+            camera-orbit="0deg 75deg 75%"
+            min-camera-orbit="auto auto 25%"
+            max-camera-orbit="auto auto 200%"
+            style="width: 100%; height: 500px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 6px;">
+            <div class="loading" slot="poster">Loading model...</div>
+          </model-viewer>
+          
           <div class="viewer-controls">
             <button id="reset-view">Reset View</button>
-            <button id="wireframe-toggle">Toggle Wireframe</button>
+            <button id="toggle-rotation">Toggle Auto-Rotation</button>
             <div class="viewer-info">
               <span id="model-name">4-Speed Transmission</span>
-              <span id="model-info">Loading...</span>
+              <span id="model-info">Interactive 3D Model</span>
             </div>
           </div>
         </div>
